@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- ENCABEZADO: logo y nombre de la tienda -->
+<header class="encabezado" th:fragment="encabezado">
+    <div class="encabezado-contenido">
+
+        <a class="logo" th:href="@{/}">
+            <img th:src="@{/img/logo.png}" alt="Logo S&amp;S GLOW" class="logo-imagen">
+            <span class="logo-texto">S&amp;S <span>GLOW</span></span>
+        </a>
+
+        <nav class="menu">
+            <a th:href="@{/}">Catálogo</a>
+
+            <a class="enlace-carrito" th:href="@{/carrito}">
+                Carrito
+                <span class="contador" th:text="${unidadesCarrito}">0</span>
+            </a>
+        </nav>
+
+    </div>
+</header>
+
+<!-- FOOTER: nombre de la tienda, año, ciudad y redes sociales -->
+<footer class="pie" th:fragment="pie">
+    <p class="pie-nombre">S&amp;S <span>GLOW</span></p>
+    <p class="pie-eslogan">Brilla con tu propia luz</p>
+    <p>Tienda de maquillaje · Medellín, Colombia · © 2026</p>
+    <p class="redes">
+        <a href="https://www.instagram.com" target="_blank">Instagram</a>
+        <a href="https://www.facebook.com" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com" target="_blank">TikTok</a>
+    </p>
+</footer>
+
+</body>
+</html>

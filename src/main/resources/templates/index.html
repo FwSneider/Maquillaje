@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&amp;S GLOW - Catálogo</title>
+    <link rel="icon" type="image/png" th:href="@{/img/logo.png}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<header th:replace="~{fragmentos :: encabezado}"></header>
+
+<main class="contenedor">
+
+    <!-- Portada con el eslogan -->
+    <section class="portada">
+        <p class="portada-etiqueta">S&amp;S GLOW · Tienda de maquillaje</p>
+        <h1>Brilla con tu <em>propia luz</em></h1>
+        <p class="portada-texto">Descubre tu look ideal entre nuestras marcas favoritas.</p>
+        <a class="boton boton-principal" href="#catalogo">Ver catálogo</a>
+    </section>
+
+    <!-- Mensaje al agregar un producto -->
+    <div class="alerta" th:if="${mensaje}" th:text="${mensaje}">Mensaje</div>
+
+    <h2 class="titulo-seccion" id="catalogo">Catálogo de maquillaje</h2>
+
+    <!-- Filtros por categoría y marca -->
+    <form class="filtros" th:action="@{/}" method="get">
+        <div>
+            <label for="categoria">Categoría</label>
+            <select id="categoria" name="categoria">
+                <option value="">Todas</option>
+                <option th:each="c : ${categorias}" th:value="${c}" th:text="${c}"
+                        th:selected="${c == categoriaSeleccionada}">Rostro</option>
+            </select>
+        </div>
+        <div>
+            <label for="marca">Marca</label>
+            <select id="marca" name="marca">
+                <option value="">Todas</option>
+                <option th:each="m : ${marcas}" th:value="${m.id}" th:text="${m.nombre}"
+                        th:selected="${m.id == marcaSeleccionada}">Marca</option>
+            </select>
+        </div>
+        <button type="submit" class="boton boton-secundario">Filtrar</button>
+        <a class="boton boton-claro" th:href="@{/}">Ver todo</a>
+    </form>
+
+    <!-- Catálogo en tarjetas -->
+    <section class="catalogo">
+
+        <article class="tarjeta" th:each="p : ${productos}">
+
+            <div class="tarjeta-foto">
+                <img th:src="@{${p.imagen}}" th:alt="${p.nombre}" class="tarjeta-imagen"
+                     referrerpolicy="no-referrer" loading="lazy">
+                <span class="etiqueta" th:text="${p.categoria}">Categoría</span>
+            </div>
+
+            <div class="tarjeta-cuerpo">
+                <p class="tarjeta-marca" th:text="${p.marca.nombre}">Marca</p>
+                <h3 th:text="${p.nombre}">Nombre del producto</h3>
+                <p class="detalle">Contenido neto: <span th:text="${p.contenidoNeto}">30 ml</span></p>
+
+                <p class="precio" th:text="'$ ' + ${#numbers.formatInteger(p.precio, 1, 'POINT')}">$ 0</p>
+
+                <form th:action="@{/carrito/agregar/{id}(id=${p.id})}" method="post" class="form-agregar">
+
+                    <!-- Filtros actuales, para conservarlos al agregar -->
+                    <input type="hidden" name="categoria" th:value="${categoriaSeleccionada}">
+                    <input type="hidden" name="marca" th:value="${marcaSeleccionada}">
+
+                    <!-- Color: solo si el producto tiene tonos -->
+                    <div class="campo" th:if="${not #lists.isEmpty(p.colores)}">
+                        <label th:for="'tono-' + ${p.id}">Color</label>
+                        <select name="tono" th:id="'tono-' + ${p.id}">
+                            <option th:each="c : ${p.colores}" th:value="${c}" th:text="${c}">Tono</option>
+                        </select>
+                    </div>
+
+                    <div class="campo">
+                        <label th:for="'cantidad-' + ${p.id}">Cantidad</label>
+                        <input type="number" name="cantidad" th:id="'cantidad-' + ${p.id}"
+                               value="1" min="1" max="99" required>
+                    </div>
+
+                    <button type="submit" class="boton boton-principal">Agregar al carrito</button>
+                </form>
+            </div>
+
+        </article>
+    </section>
+
+    <!-- Marcas -->
+    <h2 class="titulo-seccion">Nuestras marcas</h2>
+
+    <section class="marcas">
+        <article class="marca" th:each="m : ${marcas}">
+            <div class="marca-logo-caja">
+                <img th:src="@{${m.logo}}" th:alt="${'Logo ' + m.nombre}" class="marca-logo">
+            </div>
+            <h3 th:text="${m.nombre}">Marca</h3>
+            <p class="detalle">País de origen: <span th:text="${m.pais}">País</span></p>
+            <p th:text="${m.descripcion}">Descripción</p>
+        </article>
+    </section>
+</main>
+
+<footer th:replace="~{fragmentos :: pie}"></footer>
+
+</body>
+</html>

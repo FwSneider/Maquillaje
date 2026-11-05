@@ -1,0 +1,804 @@
+/* Tipografías: Playfair Display (títulos) y Poppins (texto) */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&family=Poppins:wght@300;400;500;600&display=swap");
+
+:root {
+    --crema: #fdf6f3;
+    --blanco: #ffffff;
+    --rosa: #d4637f;
+    --rosa-oscuro: #b24663;
+    --rosa-claro: #f9e3e8;
+    --dorado: #c9a36a;
+    --texto: #3a2a31;
+    --texto-suave: #8b7480;
+    --borde: #f0dbe0;
+    --rojo: #c0394f;
+    --verde: #3b8f67;
+    --sombra: 0 6px 24px rgba(212, 99, 127, 0.12);
+    --sombra-fuerte: 0 16px 38px rgba(212, 99, 127, 0.25);
+    --fuente-titulo: "Playfair Display", Georgia, serif;
+    --fuente-texto: "Poppins", "Segoe UI", Arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--fuente-texto);
+    font-weight: 400;
+    color: var(--texto);
+    background:
+        radial-gradient(circle at 10% 0%, #fde9ee 0, transparent 40%),
+        radial-gradient(circle at 95% 15%, #fbefe3 0, transparent 35%),
+        var(--crema);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    font-family: var(--fuente-titulo);
+    font-weight: 600;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 30px 22px 50px;
+    flex: 1;
+}
+
+.titulo-seccion {
+    font-size: 30px;
+    text-align: center;
+    margin: 55px 0 28px;
+    position: relative;
+}
+
+/* Línea decorativa bajo los títulos de sección */
+.titulo-seccion::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin: 12px auto 0;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--rosa), var(--dorado));
+}
+
+.centrado {
+    text-align: center;
+    margin-top: 28px;
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--borde);
+    box-shadow: 0 2px 18px rgba(212, 99, 127, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.encabezado-contenido {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 10px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--texto);
+    text-decoration: none;
+}
+
+.logo-imagen {
+    height: 48px;
+    width: auto;
+    display: block;
+    transition: transform 0.4s;
+}
+
+.logo:hover .logo-imagen {
+    transform: rotate(-6deg) scale(1.06);
+}
+
+.logo-texto {
+    font-family: var(--fuente-titulo);
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.logo-texto span,
+.pie-nombre span,
+.factura-encabezado h2 span {
+    color: var(--rosa);
+}
+
+.menu a {
+    color: var(--texto);
+    text-decoration: none;
+    margin-left: 26px;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+/* Subrayado que crece al pasar el cursor */
+.menu a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--rosa);
+    transition: width 0.3s;
+}
+
+.menu a:hover::after {
+    width: 100%;
+}
+
+.contador {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rosa), var(--rosa-oscuro));
+    color: white;
+    border-radius: 50px;
+    min-width: 22px;
+    padding: 1px 7px;
+    font-size: 12px;
+    text-align: center;
+    margin-left: 4px;
+    animation: pulso 0.6s ease-out;
+}
+
+/* ---------- Portada ---------- */
+.portada {
+    text-align: center;
+    padding: 70px 20px 60px;
+    margin-top: 10px;
+    border-radius: 28px;
+    background:
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.9) 0, transparent 45%),
+        linear-gradient(135deg, #f9dfe6 0%, #fbeee8 55%, #f6e6d3 100%);
+    border: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+    animation: aparecer 0.8s ease both;
+}
+
+.portada-etiqueta {
+    margin: 0 0 14px;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rosa-oscuro);
+    font-weight: 500;
+}
+
+.portada h1 {
+    margin: 0 0 14px;
+    font-size: 52px;
+    line-height: 1.15;
+}
+
+.portada h1 em {
+    color: var(--rosa);
+    font-style: italic;
+}
+
+.portada-texto {
+    margin: 0 auto 28px;
+    max-width: 460px;
+    color: var(--texto-suave);
+    font-weight: 300;
+    font-size: 17px;
+}
+
+/* ---------- Mensajes ---------- */
+.alerta {
+    background-color: rgba(59, 143, 103, 0.1);
+    border: 1px solid var(--verde);
+    color: #2c6f4e;
+    padding: 12px 18px;
+    border-radius: 14px;
+    margin-top: 22px;
+    animation: aparecer 0.5s ease both;
+}
+
+/* ---------- Filtros ---------- */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 32px;
+}
+
+.filtros label,
+.campo label {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin-bottom: 5px;
+}
+
+/* ---------- Catálogo ---------- */
+.catalogo {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(245px, 1fr));
+    gap: 28px;
+}
+
+.tarjeta {
+    background-color: var(--blanco);
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+    transition: transform 0.35s, box-shadow 0.35s;
+    animation: aparecer 0.7s ease both;
+}
+
+/* Las tarjetas aparecen una tras otra */
+.tarjeta:nth-child(2) { animation-delay: 0.06s; }
+.tarjeta:nth-child(3) { animation-delay: 0.12s; }
+.tarjeta:nth-child(4) { animation-delay: 0.18s; }
+.tarjeta:nth-child(5) { animation-delay: 0.24s; }
+.tarjeta:nth-child(6) { animation-delay: 0.30s; }
+.tarjeta:nth-child(7) { animation-delay: 0.36s; }
+.tarjeta:nth-child(8) { animation-delay: 0.42s; }
+.tarjeta:nth-child(9) { animation-delay: 0.48s; }
+.tarjeta:nth-child(10) { animation-delay: 0.54s; }
+
+.tarjeta:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--sombra-fuerte);
+}
+
+.tarjeta-foto {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background-color: var(--rosa-claro);
+}
+
+.tarjeta-imagen {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s;
+}
+
+.tarjeta:hover .tarjeta-imagen {
+    transform: scale(1.07);
+}
+
+.etiqueta {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: var(--rosa-oscuro);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 50px;
+}
+
+.tarjeta-cuerpo {
+    padding: 18px 18px 20px;
+}
+
+.tarjeta-marca {
+    margin: 0 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--dorado);
+}
+
+.tarjeta-cuerpo h3 {
+    margin: 0 0 6px;
+    font-size: 19px;
+    line-height: 1.3;
+}
+
+.detalle {
+    color: var(--texto-suave);
+    margin: 3px 0;
+    font-size: 13.5px;
+}
+
+.precio {
+    color: var(--rosa-oscuro);
+    font-family: var(--fuente-titulo);
+    font-size: 24px;
+    font-weight: 700;
+    margin: 12px 0 14px;
+}
+
+.form-agregar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.campo select,
+.campo input {
+    width: 100%;
+}
+
+/* ---------- Marcas ---------- */
+.marcas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 28px;
+}
+
+.marca {
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    padding: 26px 22px;
+    text-align: center;
+    box-shadow: var(--sombra);
+    transition: transform 0.35s, box-shadow 0.35s;
+}
+
+.marca:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--sombra-fuerte);
+}
+
+.marca-logo-caja {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.marca-logo {
+    max-height: 80px;
+    max-width: 80%;
+    width: auto;
+    object-fit: contain;
+}
+
+.marca h3 {
+    margin: 6px 0 4px;
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.marca p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+/* ---------- Botones ---------- */
+.boton {
+    display: inline-block;
+    border: none;
+    border-radius: 50px;
+    padding: 11px 22px;
+    font-family: var(--fuente-texto);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    color: white;
+    transition: transform 0.2s, box-shadow 0.2s, background-position 0.4s;
+}
+
+.boton:hover {
+    transform: translateY(-2px);
+}
+
+.boton:active {
+    transform: translateY(0);
+}
+
+.boton-principal {
+    background: linear-gradient(135deg, var(--rosa) 0%, var(--rosa-oscuro) 50%, var(--rosa) 100%);
+    background-size: 200% 100%;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 6px 16px rgba(212, 99, 127, 0.3);
+}
+
+.boton-principal:hover {
+    background-position: 100% 0;
+    box-shadow: 0 10px 22px rgba(212, 99, 127, 0.4);
+}
+
+.centrado .boton-principal,
+.vacio .boton-principal,
+.portada .boton-principal {
+    width: auto;
+}
+
+.boton-secundario {
+    background-color: var(--texto);
+}
+
+.boton-secundario:hover {
+    background-color: #55404a;
+}
+
+.boton-claro {
+    background-color: var(--rosa-claro);
+    color: var(--rosa-oscuro);
+}
+
+.boton-claro:hover {
+    background-color: #f4d3db;
+}
+
+.boton-peligro {
+    background-color: var(--rojo);
+}
+
+.boton-peligro:hover {
+    background-color: #a02d41;
+}
+
+/* ---------- Formularios ---------- */
+input,
+select {
+    background-color: var(--blanco);
+    color: var(--texto);
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-family: var(--fuente-texto);
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--rosa);
+    box-shadow: 0 0 0 4px rgba(212, 99, 127, 0.15);
+}
+
+/* ---------- Cajas y tablas ---------- */
+.caja {
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    padding: 24px;
+    box-shadow: var(--sombra);
+    overflow-x: auto;
+    animation: aparecer 0.6s ease both;
+}
+
+.vacio {
+    text-align: center;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla th {
+    text-align: left;
+    color: var(--texto-suave);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px;
+    border-bottom: 2px solid var(--borde);
+}
+
+.tabla td {
+    padding: 14px 10px;
+    border-bottom: 1px solid var(--borde);
+    vertical-align: middle;
+    font-size: 14.5px;
+}
+
+.tabla tbody tr {
+    transition: background-color 0.2s;
+}
+
+.tabla tbody tr:hover {
+    background-color: #fff7f9;
+}
+
+.celda-producto {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.celda-producto img {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.celda-producto small {
+    display: block;
+    color: var(--dorado);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    font-size: 11px;
+}
+
+.negrita {
+    font-weight: 600;
+    color: var(--rosa-oscuro);
+}
+
+.form-cantidad {
+    display: flex;
+    gap: 6px;
+}
+
+.form-cantidad input {
+    width: 68px;
+}
+
+/* ---------- Resumen del carrito ---------- */
+.resumen {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 26px;
+    margin-top: 26px;
+}
+
+.form-envio {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.form-envio h3,
+.totales h3 {
+    margin-top: 0;
+    font-size: 22px;
+}
+
+.opcion-envio {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--borde);
+    border-radius: 14px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.opcion-envio:hover {
+    border-color: var(--rosa);
+    background-color: #fff7f9;
+}
+
+.opcion-envio input {
+    accent-color: var(--rosa);
+    width: 18px;
+    height: 18px;
+    padding: 0;
+}
+
+.opcion-envio small {
+    display: block;
+    color: var(--texto-suave);
+}
+
+.totales p {
+    display: flex;
+    justify-content: space-between;
+    margin: 12px 0;
+}
+
+.total {
+    font-family: var(--fuente-titulo);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--rosa-oscuro);
+    border-top: 1px dashed var(--borde);
+    padding-top: 14px;
+}
+
+.enlace-volver {
+    display: block;
+    margin-top: 14px;
+    color: var(--texto-suave);
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.enlace-volver:hover {
+    color: var(--rosa);
+}
+
+/* ---------- Factura / pedido ---------- */
+.factura {
+    background-color: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 22px;
+    padding: 38px;
+    margin-top: 24px;
+    box-shadow: var(--sombra);
+    border-top: 6px solid var(--rosa);
+    animation: aparecer 0.7s ease both;
+}
+
+.factura-logo {
+    height: 58px;
+    width: auto;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.factura-encabezado {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-bottom: 2px dashed var(--borde);
+    padding-bottom: 22px;
+    margin-bottom: 22px;
+}
+
+.factura-encabezado h2 {
+    margin: 0 0 6px;
+    font-size: 30px;
+    letter-spacing: 2px;
+}
+
+.factura-encabezado p {
+    margin: 3px 0;
+    color: var(--texto-suave);
+}
+
+.factura-datos {
+    text-align: right;
+}
+
+.factura-datos h3 {
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.factura-totales {
+    max-width: 350px;
+    margin: 22px 0 0 auto;
+}
+
+.factura-totales p {
+    display: flex;
+    justify-content: space-between;
+    margin: 9px 0;
+}
+
+/* ---------- Footer ---------- */
+.pie {
+    background-color: var(--texto);
+    color: #d9c7cf;
+    text-align: center;
+    padding: 36px 20px;
+    font-size: 14px;
+}
+
+.pie p {
+    margin: 6px 0;
+}
+
+.pie-nombre {
+    font-family: var(--fuente-titulo);
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: white;
+}
+
+.pie-eslogan {
+    font-family: var(--fuente-titulo);
+    font-style: italic;
+    color: var(--dorado);
+    font-size: 17px;
+}
+
+.redes {
+    margin-top: 14px;
+}
+
+.redes a {
+    color: white;
+    text-decoration: none;
+    margin: 0 12px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.redes a:hover {
+    color: var(--rosa-claro);
+    border-bottom-color: var(--rosa);
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulso {
+    0% { transform: scale(0.6); }
+    60% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Respeta a quien prefiere menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---------- Pantallas pequeñas ---------- */
+@media (max-width: 700px) {
+    .resumen {
+        grid-template-columns: 1fr;
+    }
+
+    .portada h1 {
+        font-size: 36px;
+    }
+
+    .logo-texto {
+        font-size: 20px;
+    }
+
+    .menu a {
+        margin-left: 16px;
+    }
+
+    .factura-datos {
+        text-align: left;
+    }
+
+    .factura {
+        padding: 22px;
+    }
+}

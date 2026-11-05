@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&amp;S GLOW - Carrito</title>
+    <link rel="icon" type="image/png" th:href="@{/img/logo.png}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<header th:replace="~{fragmentos :: encabezado}"></header>
+
+<main class="contenedor">
+
+    <h2 class="titulo-seccion">Tu carrito de compras</h2>
+
+    <!-- Carrito vacío -->
+    <div class="caja vacio" th:if="${vacio}">
+        <p>Tu carrito está vacío.</p>
+        <a class="boton boton-principal" th:href="@{/}">Ir al catálogo</a>
+    </div>
+
+    <!-- Carrito con productos -->
+    <div th:unless="${vacio}">
+
+        <div class="caja">
+            <table class="tabla">
+                <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Color</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${items}">
+
+                    <td class="celda-producto">
+                        <img th:src="@{${item.producto.imagen}}" th:alt="${item.producto.nombre}" referrerpolicy="no-referrer">
+                        <div>
+                            <strong th:text="${item.producto.nombre}">Producto</strong>
+                            <small th:text="${item.producto.marca.nombre}">Marca</small>
+                        </div>
+                    </td>
+
+                    <td th:text="${item.tono} ?: 'No aplica'">Tono</td>
+
+                    <td th:text="'$ ' + ${#numbers.formatInteger(item.producto.precio, 1, 'POINT')}">$ 0</td>
+
+                    <!-- Editar cantidad -->
+                    <td>
+                        <form class="form-cantidad" method="post"
+                              th:action="@{/carrito/actualizar/{id}(id=${item.id})}">
+                            <input type="number" name="cantidad" min="1" max="99"
+                                   th:value="${item.cantidad}" required>
+                            <button type="submit" class="boton boton-secundario">Actualizar</button>
+                        </form>
+                    </td>
+
+                    <!-- Subtotal por producto -->
+                    <td class="negrita" th:text="'$ ' + ${#numbers.formatInteger(item.subtotal, 1, 'POINT')}">$ 0</td>
+
+                    <!-- Eliminar -->
+                    <td>
+                        <form method="post" th:action="@{/carrito/eliminar/{id}(id=${item.id})}">
+                            <button type="submit" class="boton boton-peligro">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="resumen">
+
+            <!-- Método de envío -->
+            <form class="caja form-envio" th:action="@{/carrito/envio}" method="post">
+                <h3>Método de envío</h3>
+
+                <label class="opcion-envio" th:each="m : ${metodosEnvio}">
+                    <input type="radio" name="idEnvio" th:value="${m.id}"
+                           th:checked="${m.id == envioSeleccionado.id}">
+                    <span>
+                        <strong th:text="${m.nombre}">Envío</strong>
+                        <small th:text="'$ ' + ${#numbers.formatInteger(m.costo, 1, 'POINT')} + ' · Entrega: ' + ${m.tiempoEntrega}">Detalle</small>
+                    </span>
+                </label>
+
+                <button type="submit" class="boton boton-secundario">Aplicar envío</button>
+            </form>
+
+            <!-- Totales y generar pedido -->
+            <div class="caja totales">
+                <h3>Resumen</h3>
+                <p>Subtotal productos: <span th:text="'$ ' + ${#numbers.formatInteger(subtotal, 1, 'POINT')}">$ 0</span></p>
+                <p><span th:text="${envioSeleccionado.nombre}">Envío</span>:
+                    <span th:text="'$ ' + ${#numbers.formatInteger(envioSeleccionado.costo, 1, 'POINT')}">$ 0</span></p>
+                <p class="total">Total general: <span th:text="'$ ' + ${#numbers.formatInteger(total, 1, 'POINT')}">$ 0</span></p>
+
+                <form th:action="@{/pedido}" method="post">
+                    <button type="submit" class="boton boton-principal">Generar pedido</button>
+                </form>
+                <a class="enlace-volver" th:href="@{/}">← Seguir comprando</a>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+<footer th:replace="~{fragmentos :: pie}"></footer>
+
+</body>
+</html>

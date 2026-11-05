@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&amp;S GLOW - Pedido</title>
+    <link rel="icon" type="image/png" th:href="@{/img/logo.png}">
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+<body>
+
+<header th:replace="~{fragmentos :: encabezado}"></header>
+
+<main class="contenedor">
+
+    <div class="alerta">¡Pedido generado con éxito! Este es el resumen de tu compra.</div>
+
+    <section class="factura">
+
+        <!-- Datos del pedido -->
+        <div class="factura-encabezado">
+            <div>
+                <img th:src="@{/img/logo.png}" alt="Logo S&amp;S GLOW" class="factura-logo">
+                <h2>S&amp;S <span>GLOW</span></h2>
+                <p>Medellín, Colombia</p>
+            </div>
+
+            <div class="factura-datos">
+                <h3>Pedido N.° <span th:text="${pedido.numero}">1</span></h3>
+                <p>Fecha: <span th:text="${#temporals.format(pedido.fecha, 'dd/MM/yyyy HH:mm')}">01/01/2026</span></p>
+                <p>Método de envío: <strong th:text="${pedido.metodoEnvio.nombre}">Envío</strong></p>
+                <p>Entrega: <span th:text="${pedido.metodoEnvio.tiempoEntrega}">3 a 5 días hábiles</span></p>
+            </div>
+        </div>
+
+        <!-- Resumen de la compra -->
+        <table class="tabla">
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Marca</th>
+                <th>Color</th>
+                <th>Cant.</th>
+                <th>Precio unitario</th>
+                <th>Subtotal</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${pedido.items}">
+                <td th:text="${item.producto.nombre}">Producto</td>
+                <td th:text="${item.producto.marca.nombre}">Marca</td>
+                <td th:text="${item.tono} ?: 'No aplica'">Tono</td>
+                <td th:text="${item.cantidad}">1</td>
+                <td th:text="'$ ' + ${#numbers.formatInteger(item.producto.precio, 1, 'POINT')}">$ 0</td>
+                <td th:text="'$ ' + ${#numbers.formatInteger(item.subtotal, 1, 'POINT')}">$ 0</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="factura-totales">
+            <p>Subtotal productos: <span th:text="'$ ' + ${#numbers.formatInteger(pedido.subtotal, 1, 'POINT')}">$ 0</span></p>
+            <p><span th:text="${pedido.metodoEnvio.nombre}">Envío</span>:
+                <span th:text="'$ ' + ${#numbers.formatInteger(pedido.metodoEnvio.costo, 1, 'POINT')}">$ 0</span></p>
+            <p class="total">Total a pagar: <span th:text="'$ ' + ${#numbers.formatInteger(pedido.total, 1, 'POINT')}">$ 0</span></p>
+        </div>
+    </section>
+
+    <div class="centrado">
+        <a class="boton boton-principal" th:href="@{/}">Volver al catálogo</a>
+    </div>
+</main>
+
+<footer th:replace="~{fragmentos :: pie}"></footer>
+
+</body>
+</html>
